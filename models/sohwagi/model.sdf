@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="sohwagi">
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1 0.1</scale>
+            <uri>model://sohwagi/meshes/sohwagi.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1 0.1</scale>
+            <uri>model://sohwagi/meshes/sohwagi.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://sohwagi/materials/scripts</uri>
+            <uri>model://sohwagi/materials/textures</uri>
+            <name>sohwagi/Diffuse</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

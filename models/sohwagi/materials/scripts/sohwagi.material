@@ -1,0 +1,29 @@
+material sohwagi/Diffuse
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture sohwagi.png
+      }
+    }
+  }
+}
+
+material sohwagi/Specular
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture sohwagi.png
+      }
+    }
+  }
+}
