@@ -30,6 +30,8 @@ setup(
     entry_points={
         'console_scripts': [
             'offboard_control = coop_work_pkg.offboard_control:main',
+            'keyboard_reader = coop_work_pkg.keyboard_reader:main',
+            'drone_controller = coop_work_pkg.drone_controller:main',
         ],
     },
 )
