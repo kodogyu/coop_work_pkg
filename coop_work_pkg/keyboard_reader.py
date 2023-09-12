@@ -71,7 +71,7 @@ def main():
         keyboard_msg = Char()
         keyboard_msg.data = ord(key)
 
-        keyboard_input_publisher.publish(keyboard_msg)  # Todo : message type geometry_msgs.msg.Pose로 바꾸기
+        keyboard_input_publisher.publish(keyboard_msg)  # Todo : message type geometry_msgs.msg.Point로 바꾸기
 
         if stack == 20:
             print(msg)
