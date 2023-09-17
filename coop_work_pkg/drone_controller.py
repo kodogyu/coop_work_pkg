@@ -3,8 +3,8 @@ from rclpy.node import Node
 from rclpy.clock import Clock
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 
-# from std_msgs.msg import Char
 from geometry_msgs.msg import Point
+from geometry_msgs.msg import Vector3
 
 from px4_msgs.msg import OffboardControlMode
 from px4_msgs.msg import TrajectorySetpoint
@@ -25,6 +25,7 @@ class DroneController(Node):
 
         self.vehicle_status_sub_ = self.create_subscription(VehicleStatus, '/fmu/out/vehicle_status', self.vehicle_status_callback, qos_profile)
         self.keyboard_input_sub_ = self.create_subscription(Point, '/keyboard_input', self.keyboard_input_callback, QoSProfile(depth=10))
+        self.gimbal_input_sub_ = self.create_subscription(Vector3, '/gimbal_input', self.gimbal_input_callback, QoSProfile(depth=10))
         self.offboard_control_mode_publisher_ = self.create_publisher(OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
         self.vehicle_command_publisher_ = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', qos_profile)
         self.trajectory_setpoint_publisher_ = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', qos_profile)
@@ -33,11 +34,15 @@ class DroneController(Node):
 
         self.nav_state = VehicleStatus.NAVIGATION_STATE_MAX
         self.counter = 0
-
+        # vehicle coordinate. (NED, m)
         self.north = 0.0
         self.east = 0.0
         self.down = -5.0
- 
+        # gimbal orientation. (angle, [-180,180]degree)
+        self.gimbal_roll = 0.0
+        self.gimbal_pitch = 0.0
+        self.gimbal_yaw = 0.0
+
         self.landing = False
 
     def vehicle_status_callback(self, msg):
@@ -47,7 +52,7 @@ class DroneController(Node):
         self.nav_state = msg.nav_state
 
     def keyboard_input_callback(self, msg):
-        # 키보드 입력 topic을 받아와서 적용
+        # /keyboard_input topic을 받아서 적용
         self.north = msg.x
         self.east = msg.y
         self.down = msg.z
@@ -56,10 +61,20 @@ class DroneController(Node):
 
         print(f"NED: {self.north}, {self.east}, {self.down}")
 
+    def gimbal_input_callback(self, msg):
+        # /gimbal_input topic을 받아서 적용
+        self.gimbal_roll = msg.x
+        self.gimbal_pitch = msg.y
+        self.gimbal_yaw = msg.z
+
+        print(f"RPY: {self.gimbal_roll}, {self.gimbal_pitch}, {self.gimbal_yaw}")
+        self.publish_gimbal_setpoint_py(self.gimbal_pitch, self.gimbal_yaw)
+
     def timer_callback(self):
         if self.counter == int(1 / self.timer_period):  # after 1 second
             self.publish_vehicle_command(VehicleCommand.VEHICLE_CMD_DO_SET_MODE, 1.0, 6.0)
             self.arm()
+            self.publish_gimbal_config()
 
         self.publish_offboard_control_mode()    # offboard control을 얻기 위해 2Hz 이상으로 계속 publish해야 함
         if self.landing:
@@ -71,10 +86,15 @@ class DroneController(Node):
         if self.counter < int(1 / self.timer_period) + 1:
             self.counter += 1
 
-    def publish_vehicle_command(self, command, param1, param2):
+    def publish_vehicle_command(self, command, param1, param2, param3=0.0, param4=0.0, param5=0.0, param6=0.0, param7=0.0):
         vehicle_command_msg = VehicleCommand()
         vehicle_command_msg.param1 = param1
         vehicle_command_msg.param2 = param2
+        vehicle_command_msg.param3 = param3
+        vehicle_command_msg.param4 = param4
+        vehicle_command_msg.param5 = param5
+        vehicle_command_msg.param6 = param6
+        vehicle_command_msg.param7 = param7
         vehicle_command_msg.command = command
         vehicle_command_msg.target_system = 1
         vehicle_command_msg.target_component = 1
@@ -99,6 +119,17 @@ class DroneController(Node):
         trajectory_msg.position[1] = east
         trajectory_msg.position[2] = down
         self.trajectory_setpoint_publisher_.publish(trajectory_msg)
+
+    def publish_gimbal_setpoint_py(self, pitch, yaw):
+        self.publish_vehicle_command(VehicleCommand.VEHICLE_CMD_DO_GIMBAL_MANAGER_PITCHYAW, pitch, yaw, float("nan"), float("nan"), param5=12.0) # pitch/yaw rate = NaN, flag = 12
+
+        self.get_logger().info(f"Gimbal setpoint sent (pitch={pitch}, yaw={yaw})")
+
+    def publish_gimbal_config(self):
+        # Publish gimbal configuration for offboard control
+        self.publish_vehicle_command(VehicleCommand.VEHICLE_CMD_DO_GIMBAL_MANAGER_CONFIGURE, 1.0, 1.0)  # primary sysid/compid=1.0/1.0
+
+        self.get_logger().info(f"Gimbal configuration sent")
 
     def arm(self):
         self.publish_vehicle_command(VehicleCommand.VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0, 0.0)
