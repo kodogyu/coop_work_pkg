@@ -3,7 +3,8 @@ from rclpy.node import Node
 from rclpy.clock import Clock
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 
-from std_msgs.msg import Char
+# from std_msgs.msg import Char
+from geometry_msgs.msg import Point
 
 from px4_msgs.msg import OffboardControlMode
 from px4_msgs.msg import TrajectorySetpoint
@@ -23,7 +24,7 @@ class DroneController(Node):
         )
 
         self.vehicle_status_sub_ = self.create_subscription(VehicleStatus, '/fmu/out/vehicle_status', self.vehicle_status_callback, qos_profile)
-        self.keyboard_input_sub_ = self.create_subscription(Char, '/keyboard_input', self.keyboard_input_callback, QoSProfile(depth=10))
+        self.keyboard_input_sub_ = self.create_subscription(Point, '/keyboard_input', self.keyboard_input_callback, QoSProfile(depth=10))
         self.offboard_control_mode_publisher_ = self.create_publisher(OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
         self.vehicle_command_publisher_ = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', qos_profile)
         self.trajectory_setpoint_publisher_ = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', qos_profile)
@@ -47,28 +48,11 @@ class DroneController(Node):
 
     def keyboard_input_callback(self, msg):
         # 키보드 입력 topic을 받아와서 적용
-        key_in = chr(msg.data)
-        if key_in == 'w':
-            self.north += 1
-        elif key_in == 'x':
-            self.north -= 1
-        elif key_in == 'a':
-            self.east -= 1
-        elif key_in == 'd':
-            self.east += 1
-        elif key_in == 'i': # 상승
-            self.down -= 1
-        elif key_in == 'm': # 하강
-            self.down += 1
-        elif key_in == 'r': # 귀환
-            self.north = 0.0
-            self.east = 0.0
-            self.down = -5.0
-            print("Returning to the Starting point")
-        elif key_in == 'l': # 착륙
+        self.north = msg.x
+        self.east = msg.y
+        self.down = msg.z
+        if self.down == 0:
             self.landing = True
-            print("Landing...")
-            self.land()
 
         print(f"NED: {self.north}, {self.east}, {self.down}")
 
@@ -78,7 +62,10 @@ class DroneController(Node):
             self.arm()
 
         self.publish_offboard_control_mode()    # offboard control을 얻기 위해 2Hz 이상으로 계속 publish해야 함
-        if not self.landing:
+        if self.landing:
+            self.land() # 착륙
+            self.landing = False    # 반복적 land() 호출을 막기 위함
+        else:
             self.publish_trajectory_setpoint(self.north, self.east, self.down)  # world 좌표 (NED 좌표계)
         
         if self.counter < int(1 / self.timer_period) + 1:
