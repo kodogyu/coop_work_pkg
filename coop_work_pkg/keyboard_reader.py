@@ -9,8 +9,8 @@ msg = """
 Keyboard Reader for Drone controller Activated
 ----------------------------------------------
 Available Keys:
-    w       r   t       i               [   ]
-a   s   d       g   h           l       ;   '
+    w       r   t       i
+a   s   d       g   h           l
     x           v       m
 
 w/x : +/-1(m) North coordinate of the drone
