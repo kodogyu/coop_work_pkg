@@ -15,7 +15,7 @@ from px4_msgs.msg import VehicleCommand
 class DroneController(Node):
 
     def __init__(self):
-        super().__init__('minimal_publisher')
+        super().__init__('drone_controller')
         qos_profile = QoSProfile(
             reliability=QoSReliabilityPolicy.BEST_EFFORT,
             durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
