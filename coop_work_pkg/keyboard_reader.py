@@ -1,21 +1,22 @@
 import rclpy
 
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
+from rclpy.qos import QoSProfile
 
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
 msg = """
 Keyboard Reader for Drone controller Activated
 ----------------------------------------------
 Available Keys:
-    w       r   t       i
+q   w   e   r   t       i
 a   s   d       g   h           l
     x           v       m
 
 w/x : +/-1(m) North coordinate of the drone
 d/a : +/-1(m) East coordinate of the drone
 m/i : +/-1(m) Down coordinate of the drone
+e/q : +/-90(deg) yaw of the drone
 s   : Move to (0, 0, D)
 r   : Return to the Starting point
 l   : Land
@@ -31,15 +32,16 @@ def main():
 
     qos_profile = QoSProfile(depth=10)
     node = rclpy.create_node('keyboard_reader')
-    keyboard_input_publisher = node.create_publisher(Point, '/keyboard_input', qos_profile)
+    keyboard_input_publisher = node.create_publisher(Twist, '/keyboard_input', qos_profile)
     gimbal_input_publisher = node.create_publisher(Vector3, '/gimbal_input', qos_profile)
 
     stack = 0
 
-    # Vehicle coordinate
+    # Vehicle position
     north = 0.0
     east = 0.0
     down = -5.0
+    yaw = 0.0
 
     # Gimbal orientation
     gimbal_roll = 0.0
@@ -71,6 +73,10 @@ def main():
             down = -5.0
         elif key == 'l':
             down = 0.0
+        elif key == 'e':    # 90도 회전 (CW)
+            yaw += 90
+        elif key == 'q':    # -90도 회전 (CCW)
+            yaw -= 90
         # gimbal keys
         elif key == 't':    # head up
             gimbal_pitch += 90
@@ -84,7 +90,7 @@ def main():
             if (key == '\x03'):
                 break
         stack += 1
-        print(f"NED: {north}, {east}, {down}")
+        print(f"NED|Y: {north}, {east}, {down} | {yaw}")
         print(f"RPY: {gimbal_roll}, {gimbal_pitch}, {gimbal_yaw}")
 
         if gimbal_pitch < -180 or gimbal_pitch > 180 or gimbal_yaw < -180 or gimbal_yaw > 180:
@@ -94,10 +100,11 @@ def main():
         
 
         # publish Keyboard input
-        keyboard_msg = Point()  # (x, y, z) = (north, east, down)
-        keyboard_msg.x = north
-        keyboard_msg.y = east
-        keyboard_msg.z = down
+        keyboard_msg = Twist()  # (x, y, z | x, y, z) = (north, east, down | roll, pitch, yaw)
+        keyboard_msg.linear.x = north
+        keyboard_msg.linear.y = east
+        keyboard_msg.linear.z = down
+        keyboard_msg.angular.z = yaw
         keyboard_input_publisher.publish(keyboard_msg)
 
         # publish Gimbal input

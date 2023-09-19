@@ -3,7 +3,7 @@ from rclpy.node import Node
 from rclpy.clock import Clock
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
 from px4_msgs.msg import OffboardControlMode
@@ -24,7 +24,7 @@ class DroneController(Node):
         )
 
         self.vehicle_status_sub_ = self.create_subscription(VehicleStatus, '/fmu/out/vehicle_status', self.vehicle_status_callback, qos_profile)
-        self.keyboard_input_sub_ = self.create_subscription(Point, '/keyboard_input', self.keyboard_input_callback, QoSProfile(depth=10))
+        self.keyboard_input_sub_ = self.create_subscription(Twist, '/keyboard_input', self.keyboard_input_callback, QoSProfile(depth=10))
         self.gimbal_input_sub_ = self.create_subscription(Vector3, '/gimbal_input', self.gimbal_input_callback, QoSProfile(depth=10))
         self.offboard_control_mode_publisher_ = self.create_publisher(OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
         self.vehicle_command_publisher_ = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', qos_profile)
@@ -34,14 +34,15 @@ class DroneController(Node):
 
         self.nav_state = VehicleStatus.NAVIGATION_STATE_MAX
         self.counter = 0
-        # vehicle coordinate. (NED, m)
+        # vehicle coordinate. (NED|Y, m|deg)
         self.north = 0.0
         self.east = 0.0
         self.down = -5.0
+        self.yaw = 0.0
         # gimbal orientation. (angle, [-180,180]degree)
         self.gimbal_roll = 0.0
         self.gimbal_pitch = 0.0
-        self.gimbal_yaw = 0.0
+        self.gimbal_yaw = 0.0        
 
         self.landing = False
 
@@ -53,13 +54,14 @@ class DroneController(Node):
 
     def keyboard_input_callback(self, msg):
         # /keyboard_input topic을 받아서 적용
-        self.north = msg.x
-        self.east = msg.y
-        self.down = msg.z
+        self.north = msg.linear.x
+        self.east = msg.linear.y
+        self.down = msg.linear.z
+        self.yaw = msg.angular.z
         if self.down == 0:
             self.landing = True
 
-        print(f"NED: {self.north}, {self.east}, {self.down}")
+        print(f"NED|Y: {self.north}, {self.east}, {self.down} | {self.yaw}")
 
     def gimbal_input_callback(self, msg):
         # /gimbal_input topic을 받아서 적용
@@ -81,7 +83,7 @@ class DroneController(Node):
             self.land() # 착륙
             self.landing = False    # 반복적 land() 호출을 막기 위함
         else:
-            self.publish_trajectory_setpoint(self.north, self.east, self.down)  # world 좌표 (NED 좌표계)
+            self.publish_trajectory_setpoint(self.north, self.east, self.down, self.yaw)  # world 좌표 (NED 좌표계)
         
         if self.counter < int(1 / self.timer_period) + 1:
             self.counter += 1
@@ -113,11 +115,13 @@ class DroneController(Node):
         offboard_msg.acceleration=False
         self.offboard_control_mode_publisher_.publish(offboard_msg)
 
-    def publish_trajectory_setpoint(self, north, east, down):
+    def publish_trajectory_setpoint(self, north, east, down, yaw):
         trajectory_msg = TrajectorySetpoint()   # world 좌표 (NED frame)
         trajectory_msg.position[0] = north
         trajectory_msg.position[1] = east
         trajectory_msg.position[2] = down
+        trajectory_msg.yaw = yaw * 3.14 / 180  # rad
+        trajectory_msg.yawspeed = 0.52  # 0.52 rad/s = 30 deg/s
         self.trajectory_setpoint_publisher_.publish(trajectory_msg)
 
     def publish_gimbal_setpoint_py(self, pitch, yaw):
