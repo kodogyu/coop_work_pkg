@@ -18,6 +18,8 @@ setup(
         (os.path.join('share', package_name, 'models/turtlebot3_waffle/meshes'), glob('models/turtlebot3_waffle/meshes/*')),  # model mesh files
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0'), glob('models/turtlebot3_waffle_mk0/model*')),   # model sdf, config files (turtlebot3_waffle_mk0)
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0/meshes'), glob('models/turtlebot3_waffle_mk0/meshes/*')),  # model mesh files
+        (os.path.join('share', package_name, 'models/maze'), glob('models/maze/model*')),   # model sdf, config files (maze1)
+        (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.world'))), # world files
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.urdf'))), # urdf files   
     ],
     install_requires=['setuptools'],
