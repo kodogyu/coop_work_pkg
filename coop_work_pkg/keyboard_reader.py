@@ -73,10 +73,10 @@ def main():
             down = -5.0
         elif key == 'l':
             down = 0.0
-        elif key == 'e':    # 90도 회전 (CW)
-            yaw += 90
-        elif key == 'q':    # -90도 회전 (CCW)
-            yaw -= 90
+        elif key == 'e':    # 10도 회전 (CW)
+            yaw += 10
+        elif key == 'q':    # -10도 회전 (CCW)
+            yaw -= 10
         # gimbal keys
         elif key == 't':    # head up
             gimbal_pitch += 90
