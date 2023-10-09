@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Action ID="ComputePathToPose" goal="{goal}" path="{path}" planner_id="" server_name="" server_timeout="" start="{start}"/>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="ComputePathToPose">
+            <input_port name="goal">Destination to plan to</input_port>
+            <output_port name="path">Path created by ComputePathToPose node</output_port>
+            <input_port name="planner_id">Mapped name to the planner plugin type to use</input_port>
+            <input_port name="server_name">Server name</input_port>
+            <input_port name="server_timeout">Server timeout</input_port>
+            <input_port name="start">Start pose of the path if overriding current robot pose</input_port>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
