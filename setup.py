@@ -27,6 +27,8 @@ setup(
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.urdf'))), # urdf files
         # Map files
         (os.path.join('share', package_name, 'maps'), glob(os.path.join('maps', '*'))), # map files
+        # params files
+        (os.path.join('share', package_name, 'params'), glob(os.path.join('params', '*.yaml'))), # navigation parameter files
         # BehaviorTree files
         (os.path.join('share', package_name, 'behavior_tree'), glob(os.path.join('behavior_tree', '*.xml'))), # behavior tree xml files
     ],
