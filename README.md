@@ -42,6 +42,7 @@ Drone-Rover간의 협업으로 SLAM을 수행하는 프로젝트 리포지토리
 ## Lanch files
 
 - load_coop_robot.launch.py
+- planner_only.launch.py
 
 ## 참고 자료
 
@@ -50,3 +51,4 @@ Drone-Rover간의 협업으로 SLAM을 수행하는 프로젝트 리포지토리
 - https://github.com/ROBOTIS-GIT/turtlebot3_simulations
 - https://github.com/Jaeyoung-Lim/px4-offboard
 - https://github.com/PX4/px4_ros_com
+- https://github.com/ros-planning/navigation2/tree/humble
