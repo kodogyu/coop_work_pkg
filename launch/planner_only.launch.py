@@ -164,7 +164,7 @@ def generate_launch_description():
     # Specify the actions
     start_gazebo_server_cmd = ExecuteProcess(
         condition=IfCondition(use_simulator),
-        cmd=['gzserver', '--verbose', '-s', 'libgazebo_ros_init.so',
+        cmd=['gzserver', '-s', 'libgazebo_ros_init.so',
              '-s', 'libgazebo_ros_factory.so', world],
         cwd=[launch_dir], output='screen')
 

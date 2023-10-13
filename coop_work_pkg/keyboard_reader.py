@@ -27,6 +27,7 @@ h/g : +/-90(degree) Gimbal yaw
 CTRL-C to quit
 """
 
+
 def main():
     rclpy.init()
 
@@ -97,7 +98,6 @@ def main():
             print("pitch, yaw should be in range [-180, 180]. Returning to (pitch=0, yaw=0).")
             gimbal_pitch = 0.0
             gimbal_yaw = 0.0
-        
 
         # publish Keyboard input
         keyboard_msg = Twist()  # (x, y, z | x, y, z) = (north, east, down | roll, pitch, yaw)
@@ -117,6 +117,7 @@ def main():
         if stack == 20:
             print(msg)
             stack = 0
+
 
 if __name__ == '__main__':
     main()

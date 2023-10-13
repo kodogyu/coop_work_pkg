@@ -55,17 +55,25 @@ class OffboardControl(Node):
             reliability=QoSReliabilityPolicy.BEST_EFFORT,
             durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
             history=QoSHistoryPolicy.KEEP_LAST,
-            depth=1
-        )
+            depth=1)
 
         self.status_sub = self.create_subscription(
             VehicleStatus,
             '/fmu/out/vehicle_status',
             self.vehicle_status_callback,
             qos_profile)
-        self.publisher_offboard_mode = self.create_publisher(OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
-        self.publisher_vehicle_command = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', qos_profile)
-        self.publisher_trajectory = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', qos_profile)
+        self.publisher_offboard_mode = self.create_publisher(
+            OffboardControlMode,
+            '/fmu/in/offboard_control_mode',
+            qos_profile)
+        self.publisher_vehicle_command = self.create_publisher(
+            VehicleCommand,
+            '/fmu/in/vehicle_command',
+            qos_profile)
+        self.publisher_trajectory = self.create_publisher(
+            TrajectorySetpoint,
+            '/fmu/in/trajectory_setpoint',
+            qos_profile)
         timer_period = 0.02  # seconds
         self.timer = self.create_timer(timer_period, self.cmdloop_callback)
 
@@ -76,7 +84,7 @@ class OffboardControl(Node):
         self.omega = 0.5
 
         self.counter = 0
- 
+
     def vehicle_status_callback(self, msg):
         # TODO: handle NED->ENU transformation
         print("NAV_STATUS: ", msg.nav_state)
@@ -99,7 +107,7 @@ class OffboardControl(Node):
             self.publisher_trajectory.publish(trajectory_msg)
 
             self.theta = self.theta + self.omega * self.dt
-        
+
         if self.counter < 51:
             self.counter += 1
 
@@ -107,9 +115,9 @@ class OffboardControl(Node):
         # Publish offboard control modes
         offboard_msg = OffboardControlMode()
         offboard_msg.timestamp = int(Clock().now().nanoseconds / 1000)
-        offboard_msg.position=True
-        offboard_msg.velocity=False
-        offboard_msg.acceleration=False
+        offboard_msg.position = True
+        offboard_msg.velocity = False
+        offboard_msg.acceleration = False
         self.publisher_offboard_mode.publish(offboard_msg)
 
     def publish_vehicle_command(self, command, param1, param2):
@@ -129,7 +137,6 @@ class OffboardControl(Node):
         self.publish_vehicle_command(VehicleCommand.VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0, 0.0)
 
         self.get_logger().info("Arm command send")
-
 
 
 def main(args=None):
