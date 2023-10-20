@@ -7,6 +7,8 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
+import os
+
 
 class MinimalService(Node):
 
@@ -22,6 +24,7 @@ class MinimalService(Node):
 
         self.br = CvBridge()
         self.img = np.zeros((800, 480))
+        self.image_dir = f"{os.environ['HOME']}/ros2_ws/src/coop_work_pkg/images/"
         self.image_name = "drone_image.pgm"
 
     def image_sub_callback(self, msg):
@@ -38,13 +41,14 @@ class MinimalService(Node):
 
         if request.data:
             # save an image
-            response.message = self.image_name
-            response.success = cv2.imwrite(self.image_name, self.img)
+            response.message = os.path.join(self.image_dir, self.image_name)  # full image path
+            response.success = cv2.imwrite(response.message, self.img)
             if response.success:
                 self.get_logger().info(f'saved file name: {response.message}')
         else:
             response.message = ""
             response.success = False
+            self.get_logger().info('file saving Failed')
 
         self.get_logger().info(f'Request process: {response.success}')
         return response
