@@ -40,11 +40,11 @@ setup(
 
         # Map files
         (os.path.join('share', package_name, 'maps'),
-         glob(os.path.join('maps', '*'))), # map files
+         glob(os.path.join('maps', '*'))),  # map files
 
         # params files
         (os.path.join('share', package_name, 'params'),
-         glob(os.path.join('params', '*.yaml'))), # navigation parameter files
+         glob(os.path.join('params', '*.yaml'))),  # navigation parameter files
 
         # BehaviorTree files
         (os.path.join('share', package_name, 'behavior_tree'),
