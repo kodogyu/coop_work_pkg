@@ -15,7 +15,7 @@ class MinimalService(Node):
     def __init__(self):
         super().__init__('drone_image_capture_server')
         self.sub = self.create_subscription(Image,
-                                            'camera/image_raw',
+                                            'typhoon_h480_ros/camera/image_raw',
                                             self.image_sub_callback,
                                             10)
         self.srv = self.create_service(SetBool,
