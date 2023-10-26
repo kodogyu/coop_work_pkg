@@ -16,39 +16,43 @@ setup(
 
         # Launch files
         (os.path.join('share', package_name, 'launch'),
-         glob(os.path.join('launch', '*launch.py'))),    # launch files
+            glob(os.path.join('launch', '*launch.py'))),    # launch files
 
         # Model files (sdf, config files)
         (os.path.join('share', package_name, 'models/turtlebot3_waffle'),
-         glob('models/turtlebot3_waffle/model*')),  # turtlebot3_waffle model
+            glob('models/turtlebot3_waffle/model*')),  # turtlebot3_waffle model
         (os.path.join('share', package_name, 'models/turtlebot3_waffle/meshes'),
-         glob('models/turtlebot3_waffle/meshes/*')),  # mesh files
+            glob('models/turtlebot3_waffle/meshes/*')),  # mesh files
+        (os.path.join('share', package_name, 'models/turtlebot3_waffle_stereo'),
+            glob('models/turtlebot3_waffle_stereo/model*')),  # turtlebot3_waffle_stereo model
+        (os.path.join('share', package_name, 'models/turtlebot3_waffle_stereo/meshes'),
+            glob('models/turtlebot3_waffle_stereo/meshes/*')),  # mesh files
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0'),
-         glob('models/turtlebot3_waffle_mk0/model*')),  # turtlebot3_waffle_mk0 model
+            glob('models/turtlebot3_waffle_mk0/model*')),  # turtlebot3_waffle_mk0 model
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0/meshes'),
-         glob('models/turtlebot3_waffle_mk0/meshes/*')),  # mesh files
+            glob('models/turtlebot3_waffle_mk0/meshes/*')),  # mesh files
         (os.path.join('share', package_name, 'models/maze'),
-         glob('models/maze/model*')),  # model sdf, config files (maze1)
+            glob('models/maze/model*')),  # model sdf, config files (maze1)
 
         # World files
         (os.path.join('share', package_name, 'worlds'),
-         glob(os.path.join('worlds', '*.world'))),  # world files
+            glob(os.path.join('worlds', '*.world'))),  # world files
 
         # URDF files
         (os.path.join('share', package_name, 'urdf'),
-         glob(os.path.join('urdf', '*.urdf'))),  # urdf files
+            glob(os.path.join('urdf', '*.urdf'))),  # urdf files
 
         # Map files
         (os.path.join('share', package_name, 'maps'),
-         glob(os.path.join('maps', '*'))),  # map files
+            glob(os.path.join('maps', '*'))),  # map files
 
         # params files
         (os.path.join('share', package_name, 'params'),
-         glob(os.path.join('params', '*.yaml'))),  # navigation parameter files
+            glob(os.path.join('params', '*.yaml'))),  # navigation parameter files
 
         # BehaviorTree files
         (os.path.join('share', package_name, 'behavior_tree'),
-         glob(os.path.join('behavior_tree', '*.xml'))),  # behavior tree xml files
+            glob(os.path.join('behavior_tree', '*.xml'))),  # behavior tree xml files
     ],
     install_requires=['setuptools'],
     zip_safe=True,
