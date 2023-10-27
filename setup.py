@@ -27,6 +27,10 @@ setup(
             glob('models/turtlebot3_waffle_stereo/model*')),  # turtlebot3_waffle_stereo model
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_stereo/meshes'),
             glob('models/turtlebot3_waffle_stereo/meshes/*')),  # mesh files
+        (os.path.join('share', package_name, 'models/turtlebot3_waffle_depth'),
+            glob('models/turtlebot3_waffle_depth/model*')),  # turtlebot3_waffle_depth model
+        (os.path.join('share', package_name, 'models/turtlebot3_waffle_depth/meshes'),
+            glob('models/turtlebot3_waffle_depth/meshes/*')),  # mesh files
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0'),
             glob('models/turtlebot3_waffle_mk0/model*')),  # turtlebot3_waffle_mk0 model
         (os.path.join('share', package_name, 'models/turtlebot3_waffle_mk0/meshes'),

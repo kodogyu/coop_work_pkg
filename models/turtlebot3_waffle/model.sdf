@@ -425,6 +425,9 @@
             <near>0.02</near>
             <far>300</far>
           </clip>
+          <save enabled="False">
+            <path>/home/kodogyu/wsl_shared_folder/waffle_house/images</path>
+          </save>
           <noise>
             <type>gaussian</type>
             <!-- Noise is sampled independently per pixel on each frame.
