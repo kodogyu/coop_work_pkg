@@ -410,16 +410,17 @@
       </inertial>
 
       <pose>0.069 -0.047 0.107 0 0 0</pose>
-      <sensor name="stereo_camera" type="multicamera">
+      <!-- Intel Realsense D435i -->
+      <sensor name="camera" type="multicamera">
         <always_on>true</always_on>
         <visualize>true</visualize>
         <update_rate>20</update_rate>
 
         <camera name="left">
           <pose>0 0 0 0 0 0</pose>
-          <horizontal_fov>1.02974</horizontal_fov>
+          <horizontal_fov>1.204277</horizontal_fov>
           <image>
-            <width>752</width>
+            <width>640</width>
             <height>480</height>
             <format>R8G8B8</format>
           </image>
@@ -438,10 +439,10 @@
         </camera>
 
         <camera name="right">
-          <pose>0 -0.12 0 0 0 0</pose>
-          <horizontal_fov>1.02974</horizontal_fov>
+          <pose>0 -0.05 0 0 0 0</pose>
+          <horizontal_fov>1.204277</horizontal_fov>
           <image>
-            <width>752</width>
+            <width>640</width>
             <height>480</height>
             <format>R8G8B8</format>
           </image>
