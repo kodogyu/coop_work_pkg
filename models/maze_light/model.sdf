@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.7'>
-  <model name='maze'>
+  <model name='maze_light'>
     <pose>0 0 0 0 0 0</pose>
     <link name='Outer_Wall_0'>
       <collision name='Wall_0_Collision'>
@@ -758,7 +758,51 @@
         <specular>0.1 0.1 0.1 1</specular>
         <direction>0 0 -1</direction>
         <attenuation>
+          <range>30</range>
+          <constant>0.5</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <cast_shadows>0</cast_shadows>
+        <spot>
+          <inner_angle>0.6</inner_angle>
+          <outer_angle>1</outer_angle>
+          <falloff>1</falloff>
+        </spot>
+      </light>
+    </link>
+
+    <link name='light_link_2'>
+      <pose>12.553316 0 8 0 0.78597 0</pose>
+      <light name='user_spot_light_2' type='spot'>
+        <pose>0 0 0 0 0 0</pose>
+        <diffuse>0.5 0.5 0.5 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <direction>0 0 -1</direction>
+        <attenuation>
           <range>20</range>
+          <constant>0.5</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <cast_shadows>0</cast_shadows>
+        <spot>
+          <inner_angle>0.6</inner_angle>
+          <outer_angle>1</outer_angle>
+          <falloff>1</falloff>
+        </spot>
+      </light>
+    </link>
+
+    <link name='light_link_3'>
+      <pose>0 19.210722 14.210317 -1.075717 0 0</pose>
+      <light name='user_spot_light_3' type='spot'>
+        <pose>0 0 0 0 0 0</pose>
+        <diffuse>0.5 0.5 0.5 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <direction>0 0 -1</direction>
+        <attenuation>
+          <range>30</range>
           <constant>0.5</constant>
           <linear>0.01</linear>
           <quadratic>0.001</quadratic>
