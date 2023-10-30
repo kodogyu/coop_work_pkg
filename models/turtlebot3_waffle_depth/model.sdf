@@ -381,6 +381,9 @@
             <near>0.02</near>
             <far>300</far>
           </clip>
+          <save enabled="True">
+            <path>/home/kodogyu/shared_folder_local/waffle_rgbd/rgb/</path>
+          </save>
           <noise>
             <type>gaussian</type>
             <!-- Noise is sampled independently per pixel on each frame.
@@ -404,6 +407,7 @@
     </link>    
 
     <link name="camera_depth_frame">
+      <pose>0.069 -0.047 0.107 0 0 0</pose>
       <sensor name="depth_camera" type="depth">
         <visualize>true</visualize>
         <update_rate>30.0</update_rate>
@@ -418,6 +422,9 @@
             <near>0.05</near>
             <far>3</far>
           </clip>
+          <save enabled="True">
+            <path>/home/kodogyu/shared_folder_local/waffle_rgbd/depth/</path>
+          </save>
         </camera>
         <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
           <baseline>0.2</baseline>
