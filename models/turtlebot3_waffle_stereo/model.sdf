@@ -436,6 +436,14 @@
             <mean>0.0</mean>
             <stddev>0.007</stddev>
           </noise>
+          <lens>
+            <intrinsics>
+              <fx>382.613</fx>
+              <fy>382.613</fy>
+              <cx>320.183</cx>
+              <cy>236.455</cy>
+            </intrinsics>
+          </lens>
         </camera>
 
         <camera name="right">
@@ -458,6 +466,14 @@
             <mean>0.0</mean>
             <stddev>0.007</stddev>
           </noise>
+          <lens>
+            <intrinsics>
+              <fx>382.613</fx>
+              <fy>382.613</fy>
+              <cx>320.183</cx>
+              <cy>236.455</cy>
+            </intrinsics>
+          </lens>
         </camera>
 
           <plugin name="camera_driver" filename="libgazebo_ros_camera.so">
