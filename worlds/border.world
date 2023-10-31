@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="default">
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+      <pose>0 0 10 0 -0 0</pose>
+    </include>
+
+    <spherical_coordinates>
+      <!-- currently gazebo has a bug: instead of outputing lat, long, altitude in ENU
+      (x = East, y = North and z = Up) as the default configurations, it's outputting (-E)(-N)U,
+      therefore we rotate the default frame 180 so that it would go back to ENU 
+      see: https://github.com/osrf/gazebo/issues/2022 --> 
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>38.161479</latitude_deg>
+      <longitude_deg>-122.454630</longitude_deg>
+      <elevation>488.0</elevation>
+      <heading_deg>180</heading_deg>
+    </spherical_coordinates>
+
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>150</iters>
+          <precon_iters>0</precon_iters>
+          <sor>1.400000</sor>
+          <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0.00001</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>2000.000000</contact_max_correcting_vel>
+          <contact_surface_layer>0.01000</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+    
+    <!-- <model name="border">
+      <static>1</static>
+      <include>
+        <uri>model://border</uri>
+      </include>
+    </model> -->
+
+    <model name="sohwagi_0">
+      <pose>1 2 0 0 0 0</pose>
+      <include>
+        <uri>model://sohwagi</uri>
+      </include>
+    </model>
+
+    <model name="sohwagi_1">
+      <pose>-2.787710 3.040580 0 0 0 0</pose>
+      <include>
+        <uri>model://sohwagi</uri>
+      </include>
+    </model>
+
+    <model name="sohwagi_2">
+      <pose>-4.026260 -1.791360 0 0 0 0</pose>
+      <include>
+        <uri>model://sohwagi</uri>
+      </include>
+    </model>
+
+    <model name="sohwagi_3">
+      <pose>-2.655270 -0.239181 0 0 0 0</pose>
+      <include>
+        <uri>model://sohwagi</uri>
+      </include>
+    </model>
+
+    <model name="bookshelf">
+      <pose>2.338480 1.811550 0 0 0 0</pose>
+      <include>
+        <uri>model://bookshelf</uri>
+      </include>
+    </model>
+
+    <model name="coke_can">
+      <pose>-0.729820 1.872549 0.032207 -1.572420 -0.557258 0.136484</pose>
+      <include>
+        <uri>model://coke_can</uri>
+      </include>
+    </model>
+
+    <model name="Construction Cone">
+      <pose>0.136484 -0.585239 0 0 0 0</pose>
+      <include>
+        <uri>model://construction_cone</uri>
+      </include>
+    </model>
+
+    <model name="Construction Barrel">
+      <pose>-0.585239 -1.339195 0 0 0 0</pose>
+      <include>
+        <uri>model://construction_barrel</uri>
+      </include>
+    </model>
+
+    <model name="bowl">
+      <pose>0.371982 -0.659167 0 0 0 0</pose>
+      <include>
+        <uri>model://bowl</uri>
+      </include>
+    </model>
+
+    <model name="car_wheel">
+      <pose>-0.754065 -0.793049 0.014421 0.426489 0 -0.022618</pose>
+      <include>
+        <uri>model://car_wheel</uri>
+      </include>
+    </model>
+
+    <model name="cinder_block">
+      <pose>2.560830 0.222041 0 0 0 0</pose>
+      <include>
+        <uri>model://cinder_block</uri>
+      </include>
+    </model>
+
+    <model name="cricket_ball">
+      <pose>0.364577 -0.338741 0.003305 -0.475853 -0.095783 0.034149</pose>
+      <include>
+        <uri>model://cricket_ball</uri>
+      </include>
+    </model>
+
+    <model name="disk_part">
+      <pose>-0.161459 3.193700 0 0 0 0</pose>
+      <include>
+        <uri>model://disk_part</uri>
+      </include>
+    </model>
+
+    <model name="grey_tote">
+      <pose>-0.565278 0.784237 0 0  0 -1.570796</pose>
+      <include>
+        <uri>model://grey_tote</uri>
+      </include>
+    </model>
+
+    <model name="Mailbox">
+      <pose>-0.899069 2.788820 0 0 0 0</pose>
+      <include>
+        <uri>model://mailbox</uri>
+      </include>
+    </model>
+
+    <model name="postbox">
+      <pose>-4.645740 0.803956 0 0 0 0</pose>
+      <include>
+        <uri>model://postbox</uri>
+      </include>
+    </model>
+
+    <model name="wooden_case">
+      <pose>-0.402704 -2.604008 -0.001057 0 0 3.141593</pose>
+      <include>
+        <uri>model://wooden_case</uri>
+      </include>
+    </model>
+
+    <model name="wooden_peg">
+      <pose>-2.218990 -3.668360 0 0 0 0</pose>
+      <include>
+        <uri>model://wooden_peg</uri>
+      </include>
+    </model>
+
+    <model name="wood_cube_10cm">
+      <pose>4.400510 -4.159750 0 0 0 0</pose>
+      <include>
+        <uri>model://wooden_peg</uri>
+      </include>
+    </model>
+
+    <model name="wooden_board">
+      <pose>0.202628 -3.192450 0.164093 -1.570796 0 0</pose>
+      <include>
+        <uri>model://wooden_board</uri>
+      </include>
+    </model>
+
+    <model name="quadrotor">
+      <pose>4.190960 4.218180 0 0 0 0</pose>
+      <include>
+        <uri>model://quadrotor</uri>
+      </include>
+    </model>
+
+    <model name="person_walking">
+      <pose>4.218180 -1.876630 0 0 0 0</pose>
+      <include>
+        <uri>model://person_walking</uri>
+      </include>
+    </model>
+
+    <model name="monkey wrench">
+      <pose>3.501188 1.763319 0.007772 0.016681 0.020774 0.000151</pose>
+      <include>
+        <uri>model://monkey_wrench</uri>
+      </include>
+    </model>
+
+    <model name="pine_tree">
+      <pose>0 -4.0 0 0 0 0</pose>
+      <include>
+        <uri>model://pine_tree</uri>
+      </include>
+    </model>
+
+    <model name="ladder_75deg_2rails">
+      <pose>-4.0 4.0 0 0 0 0</pose>
+      <include>
+        <uri>model://ladder_75deg_2rails</uri>
+      </include>
+    </model>
+
+
+  </world>
+</sdf>
