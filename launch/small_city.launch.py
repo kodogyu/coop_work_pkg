@@ -26,13 +26,13 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
-    launch_file_dir = os.path.join(get_package_share_directory('small_city'), 'launch')
+    launch_file_dir = os.path.join(get_package_share_directory('coop_work_pkg'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     world = os.path.join(
-        get_package_share_directory('small_city'),
+        get_package_share_directory('coop_work_pkg'),
         'worlds',
         'small_city.world'
     )
@@ -50,15 +50,10 @@ def generate_launch_description():
         )
     )
 
-    
-
-    
-
     ld = LaunchDescription()
 
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
-   
 
     return ld
