@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <model name="turtlebot3_waffle">  
+  <model name="turtlebot3_waffle_stereo">  
   <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
 
     <link name="base_footprint"/>
@@ -410,14 +410,17 @@
       </inertial>
 
       <pose>0.069 -0.047 0.107 0 0 0</pose>
-      <sensor name="camera" type="camera">
+      <!-- Intel Realsense D435i -->
+      <sensor name="camera" type="multicamera">
         <always_on>true</always_on>
         <visualize>true</visualize>
-        <update_rate>2</update_rate>
-        <camera name="aptina_MT9V034">
-          <horizontal_fov>1.02974</horizontal_fov>
+        <update_rate>20</update_rate>
+
+        <camera name="left">
+          <pose>0 0 0 0 0 0</pose>
+          <horizontal_fov>1.204277</horizontal_fov>
           <image>
-            <width>752</width>
+            <width>640</width>
             <height>480</height>
             <format>R8G8B8</format>
           </image>
@@ -425,9 +428,6 @@
             <near>0.02</near>
             <far>300</far>
           </clip>
-          <save enabled="True">
-            <path>/home/kodogyu/wsl_shared_folder/waffle_maze_under_construct/images</path>
-          </save>
           <noise>
             <type>gaussian</type>
             <!-- Noise is sampled independently per pixel on each frame.
@@ -438,13 +438,44 @@
           </noise>
           <lens>
             <intrinsics>
-              <fx>458.654</fx>
-              <fy>457.296</fy>
-              <cx>367.215</cx>
-              <cy>248.375</cy>
+              <fx>382.613</fx>
+              <fy>382.613</fy>
+              <cx>320.183</cx>
+              <cy>236.455</cy>
             </intrinsics>
           </lens>
         </camera>
+
+        <camera name="right">
+          <pose>0 -0.05 0 0 0 0</pose>
+          <horizontal_fov>1.204277</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                  That pixel's noise value is added to each of its color
+                  channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+          <lens>
+            <intrinsics>
+              <fx>382.613</fx>
+              <fy>382.613</fy>
+              <cx>320.183</cx>
+              <cy>236.455</cy>
+            </intrinsics>
+          </lens>
+        </camera>
+
           <plugin name="camera_driver" filename="libgazebo_ros_camera.so">
             <ros>
               <!-- <namespace>test_cam</namespace> -->

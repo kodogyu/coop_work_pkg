@@ -36,7 +36,7 @@ def generate_launch_description():
     world = os.path.join(
         get_package_share_directory('coop_work_pkg'),
         'worlds',
-        'maze.world'
+        'maze_under_construct.world'
     )
 
     gzserver_cmd = IncludeLaunchDescription(

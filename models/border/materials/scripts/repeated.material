@@ -1,0 +1,67 @@
+material ScreenShot1
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/screen_shot.png
+        // Repeat the texture over the surface (4 per face)
+        scale 1 0.5
+      }
+    }
+  }
+}
+
+material ScreenShot2
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/screen_shot2.png
+        // Repeat the texture over the surface (4 per face)
+        scale 0.5 0.5
+      }
+    }
+  }
+}
+
+material LandScape
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/landscape.png
+        // Repeat the texture over the surface (4 per face)
+        scale 0.5 0.5
+      }
+    }
+  }
+}
+
+material MessyImg
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/messy_img.png
+        // Repeat the texture over the surface (4 per face)
+        scale 0.5 0.5
+      }
+    }
+  }
+}
