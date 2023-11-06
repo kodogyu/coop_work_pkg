@@ -413,7 +413,7 @@
       <sensor name="camera" type="camera">
         <always_on>true</always_on>
         <visualize>true</visualize>
-        <update_rate>20</update_rate>
+        <update_rate>2</update_rate>
         <camera name="aptina_MT9V034">
           <horizontal_fov>1.02974</horizontal_fov>
           <image>
@@ -425,8 +425,8 @@
             <near>0.02</near>
             <far>300</far>
           </clip>
-          <save enabled="False">
-            <path>/home/kodogyu/wsl_shared_folder/waffle_house/images</path>
+          <save enabled="True">
+            <path>/home/kodogyu/wsl_shared_folder/waffle_maze_under_construct/images</path>
           </save>
           <noise>
             <type>gaussian</type>
@@ -436,6 +436,14 @@
             <mean>0.0</mean>
             <stddev>0.007</stddev>
           </noise>
+          <lens>
+            <intrinsics>
+              <fx>458.654</fx>
+              <fy>457.296</fy>
+              <cx>367.215</cx>
+              <cy>248.375</cy>
+            </intrinsics>
+          </lens>
         </camera>
           <plugin name="camera_driver" filename="libgazebo_ros_camera.so">
             <ros>
