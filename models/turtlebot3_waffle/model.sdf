@@ -425,7 +425,7 @@
             <near>0.02</near>
             <far>300</far>
           </clip>
-          <save enabled="True">
+          <save enabled="False">
             <path>/home/kodogyu/wsl_shared_folder/waffle_maze_under_construct/images</path>
           </save>
           <noise>
