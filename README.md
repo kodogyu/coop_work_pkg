@@ -1,7 +1,7 @@
 # coop_work_pkg
 KHU 캡스톤디자인 Drones and Rovers for Extraterrestrial Autonomous Mapping(**DREAM**) 팀.
 
-Drone-Rover간의 협업으로 SLAM을 수행하는 프로젝트 리포지토리입니다.
+Drone-Rover간의 협업으로 3D Reconstruction을 수행하는 프로젝트 리포지토리입니다.
 
 ## 사용 방법
 
@@ -26,23 +26,19 @@ Drone-Rover간의 협업으로 SLAM을 수행하는 프로젝트 리포지토리
     ```
     
 4. 이제 `coop_work_pkg` 패키지를 사용할 수 있습니다.
-    
-    ```bash
-    $ ros2 run coop_work_pkg keyboard_reader
-    $ ros2 run coop_work_pkg drone_controller
-    ```
-    
 
+    
 ## Nodes
 
-- drone_controller
-- keyboard_reader
-- offboard_control
+- 
 
 ## Lanch files
 
-- load_coop_robot.launch.py
-- planner_only.launch.py
+- 
+
+## Worlds
+
+- gazebo에 올라가는 환경
 
 ## 참고 자료
 
