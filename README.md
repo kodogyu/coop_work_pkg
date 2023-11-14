@@ -27,18 +27,36 @@ Drone-Rover간의 협업으로 3D Reconstruction을 수행하는 프로젝트 �
     
 4. 이제 `coop_work_pkg` 패키지를 사용할 수 있습니다.
 
+5. 
+
     
-## Nodes
+## URDFs
 
-- 
+- common_properties.urdf :
+- turtlebot3_burger.urdf :
+- turtlebot3_waffle.urdf :
+- turtlebot3_waffle_depth.urdf : depth 카메라를 탑재한 waffle입니다.
+- turtlebot3_waffle_mk0.urdf :
+- turtlebot3_waffle_pi.urdf :
+- turtlebot3_waffle_stereo.urdf : stereo 카메라를 탑재한 waffle입니다.
 
-## Lanch files
+## Launch files
 
-- 
+- bringup_launch.py : planner_only.launch 실행 시 호출됩니다.
+- load_coop_robot.launch.py :
+- navigation_launch.py :
+- planner_only.launch.py :
+- robot_state_publisher.launch.py :
+- spawn_turtlebot3.launch.py :
+- turtlebot3_maze.launch.py :
 
 ## Worlds
 
-- gazebo에 올라가는 환경
+- small_city.world : 
+- maze_under_construct.world :
+- border.world :
+- maze.world :
+- maze_light.world : 
 
 ## 참고 자료
 
