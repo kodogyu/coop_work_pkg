@@ -5,28 +5,38 @@ Drone-Rover간의 협업으로 3D Reconstruction을 수행하는 프로젝트 �
 
 ## 사용 방법
 
-1. `<워크스페이스>/src/` 아래에 리포지토리를 clone.
+1. PX4 환경 구축
+
+    [PX4의 ROS2 User Guide 문서](https://docs.px4.io/main/en/ros/ros2_comm.html)를 참고하여 PX4와 ROS2를 사용할 수 있도록 환경을 구축합니다.
+
+2. `<워크스페이스>/src/` 아래에 리포지토리를 clone.
     
     ```bash
     $ cd <workspace>/src
     $ git clone https://github.com/kodogyu/coop_work_pkg.git
     ```
     
-2. `<워크스페이스>`에서 빌드.
+3. `<워크스페이스>`에서 빌드.
     
     ```bash
     $ cd ../
     $ colcon build
     ```
     
-3. 워크스페이스의 `setup.bash` 파일 실행.
+4. 워크스페이스의 `setup.bash` 파일 실행.
     
     ```bash
     $ source <workspace>/install/setup.bash
     ```
     
-4. 이제 `coop_work_pkg` 패키지를 사용할 수 있습니다.
+5. 이제 `coop_work_pkg` 패키지를 사용할 수 있습니다.
 
+    ```bash
+    $ ros2 run coop_work_pkg drone_controller
+    ```
+    ```bash
+    $ ros2 run coop_work_pkg keyboard_reader    
+    ```
 
 ## URDFs
 
