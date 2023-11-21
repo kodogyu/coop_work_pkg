@@ -30,13 +30,13 @@ Drone-Rover간의 협업으로 3D Reconstruction을 수행하는 프로젝트 �
 
 ## URDFs
 
-- common_properties.urdf : burger, waffle 모두에 공통으로 사용되는 요소들에 대한 파일입니다.
+- common_properties.urdf : burger, waffle 공통으로 사용되는 요소들에 대한 파일입니다.
 - turtlebot3_burger.urdf : turtlebot3 burger 모델입니다.
 - turtlebot3_waffle.urdf : turtlebot3 waffle 모델입니다.
 - turtlebot3_waffle_pi.urdf : turtlebot3 waffle pi 모델입니다.
 - turtlebot3_waffle_depth.urdf : depth 카메라를 탑재한 waffle 모델입니다.
 - turtlebot3_waffle_mk0.urdf : RGB 카메라와 라이다가 평행하게 위치하도록 수정한 waffle 모델입니다.
-- turtlebot3_waffle_stereo.urdf : stereo 카메라를 탑재한 waffle입니다.
+- turtlebot3_waffle_stereo.urdf : stereo 카메라를 탑재한 waffle 모델입니다.
 
 
 ## Nodes
@@ -50,19 +50,24 @@ Drone-Rover간의 협업으로 3D Reconstruction을 수행하는 프로젝트 �
 ## Launch files
 
 - **load_coop_robot.launch.py** : 현재 띄워져있는 Gazebo 월드에 터틀봇을 추가로 로드합니다. ```TURTLEBOT3_MODEL``` 환경변수를 **URDF**에 존재하는 모델로 설정하면 해당 모델이 시뮬레이터에 로드됩니다.
+```
+export TURTLEBOT3_MODEL=<model name>
+```
 - **turtlebot3_maze.launch.py** : ```maze_under_construct.world``` Gazebo 환경을 실행하고 터틀봇을 로드합니다.
 - **planner_only.launch.py** : Gazebo와 navigation 기능을 실행합니다. 
 - **bringup_launch.py** : NAV2, SLAM, Localization 기능을 불러옵니다. 홀로 사용되지 않고 ```planner_only.launch.py``` 실행 시 호출됩니다.
-- **navigation_launch.py** : NAV2 스택을 실행합니다. 홀로 사용되지 않고 ```bringup_launch.py``` 실행 시 호출됩니다.
-- **robot_state_publisher.launch.py** : urdf 파일을 읽어 로봇의 state를 publish합니다. 홀로 사용되지 않고 ```turtlebot3_maze.launch.py``` 실행 시 호출됩니다.
-- **spawn_turtlebot3.launch.py** : ```TURTLEBOT3_MODEL``` 환경변수에 지정된 터틀봇 모델의 sdf 파일을 읽어 Gazebo 시뮬레이터에 로드합니다. 홀로 사용되지 않고 ```turtlebot3_maze.launch.py``` 실행 시 호출됩니다.
+- **navigation_launch.py** : NAV2 스택을 실행합니다. 단독으로 사용되지 않고 ```bringup_launch.py``` 실행 시 호출됩니다.
+- **robot_state_publisher.launch.py** : urdf 파일을 읽어 로봇의 state를 publish합니다. 단독으로 사용되지 않고 ```turtlebot3_maze.launch.py```  
+  실행 시 호출됩니다.
+- **spawn_turtlebot3.launch.py** : ```TURTLEBOT3_MODEL``` 환경변수에 지정된 터틀봇 모델의 sdf 파일을 읽어 Gazebo 시뮬레이터에 로드합니다.  
+  단독으로 사용되지 않고 ```turtlebot3_maze.launch.py``` 실행 시 호출됩니다.
 
 
 ## Worlds
 
 ### border.world
 ![border_world](images/border_world.png)
-지형 없이 다양한 물체들에 대해 테스트 하기 위한 월드입니다.
+지형 없이 다양한 물체들에 대해서만 테스트 하기 위한 월드입니다.
 
 ### maze.world
 ![maze_world](images/maze_world.png)
