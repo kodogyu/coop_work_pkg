@@ -37,14 +37,17 @@ class MinimalService(Node):
 
         # draw crop area lines
         image_height, image_width = self.image.shape[:2]
-        crop_height = int(image_height/3)
-        crop_width = int(image_width/2.5)
+        image_center = (image_height // 2, image_width // 2)
+        window_height = 213
+        window_width = 144
 
         plt_image = copy.deepcopy(self.image)
         # crop area
-        plt_image = cv2.rectangle(plt_image, (crop_width, crop_height), (image_width - crop_width, image_height-crop_height), color=(0, 0, 255))
+        plt_image = cv2.rectangle(plt_image, (image_center[1] - window_width // 2, image_center[0] - window_height // 2), 
+                              (image_center[1] + window_width // 2, image_center[0] + window_height // 2), color=(255, 0, 0))
         # image center
-        plt_image = cv2.circle(plt_image, (image_width//2, image_height//2), radius=2, color=(0, 0, 255), thickness=2, lineType=-1)
+        plt_image = cv2.circle(plt_image, (image_center[1], image_center[0]), radius=2, color=(0, 0, 255), thickness=2, lineType=-1)
+
 
         cv2.imshow("camera", plt_image)
         cv2.waitKey(1)
@@ -54,7 +57,7 @@ class MinimalService(Node):
         self.get_logger().info(f'Incoming request\ndata: {request.data}')
         response.message = ""
         response.success = False
-                
+
         if request.data:
             # Save an image
             # full image path
