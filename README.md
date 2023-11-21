@@ -57,10 +57,8 @@ export TURTLEBOT3_MODEL=<model name>
 - **planner_only.launch.py** : Gazebo와 navigation 기능을 실행합니다. 
 - **bringup_launch.py** : NAV2, SLAM, Localization 기능을 불러옵니다. 홀로 사용되지 않고 ```planner_only.launch.py``` 실행 시 호출됩니다.
 - **navigation_launch.py** : NAV2 스택을 실행합니다. 단독으로 사용되지 않고 ```bringup_launch.py``` 실행 시 호출됩니다.
-- **robot_state_publisher.launch.py** : urdf 파일을 읽어 로봇의 state를 publish합니다. 단독으로 사용되지 않고 ```turtlebot3_maze.launch.py```  
-  실행 시 호출됩니다.
-- **spawn_turtlebot3.launch.py** : ```TURTLEBOT3_MODEL``` 환경변수에 지정된 터틀봇 모델의 sdf 파일을 읽어 Gazebo 시뮬레이터에 로드합니다.  
-  단독으로 사용되지 않고 ```turtlebot3_maze.launch.py``` 실행 시 호출됩니다.
+- **robot_state_publisher.launch.py** : urdf 파일을 읽어 로봇의 state를 publish합니다. 단독으로 사용되지 않고 ```turtlebot3_maze.launch.py```실행 시 호출됩니다.
+- **spawn_turtlebot3.launch.py** : ```TURTLEBOT3_MODEL``` 환경변수에 지정된 터틀봇 모델의 sdf 파일을 읽어 Gazebo 시뮬레이터에 로드합니다. 단독으로 사용되지 않고 ```turtlebot3_maze.launch.py``` 실행 시 호출됩니다.
 
 
 ## Worlds
