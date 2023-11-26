@@ -71,6 +71,7 @@ setup(
             'keyboard_reader = coop_work_pkg.keyboard_reader:main',
             'drone_controller = coop_work_pkg.drone_controller:main',
             'drone_image_server = coop_work_pkg.drone_image_capture_server:main',
+            'image_processor = coop_work_pkg.image_processor:main',
         ],
     },
 )
